@@ -8,6 +8,8 @@ import org.openqa.selenium.remote.server.handler.ClickElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.Optional;
+
 public  class BeneficiaryTracing extends GenericMethod {
 
     VOPDDeathValidations VOPD=new VOPDDeathValidations();
@@ -29,19 +31,34 @@ public  class BeneficiaryTracing extends GenericMethod {
     {
         try
         {
+            Optional<String> Beneficiarytype=Optional.ofNullable(BeneficiaryType);
+            Optional<String> Beneficiaryno=Optional.ofNullable(BeneficiaryNo);
+            Optional<String> Beneficiaryaccount=Optional.ofNullable(BeneficiaryAccount);
+            Optional<String> BeneficiarybranchCode=Optional.ofNullable(BeneficiaryBranchCode);
+            Optional<String> RelationtoDeceased=Optional.ofNullable(RelationToDeceased);
+            Optional<String> Relationsource=Optional.ofNullable(RelationSource);
+            Optional<String> Beneficiaryoutcome=Optional.ofNullable(BeneficiaryOutcome);
+            Optional<String> BeneficiaryAdditionalcomments=Optional.ofNullable(BeneficiaryAdditionalComments);
+
+
             waitforPageload();
             ScollToElement(BeneficiaryTracing.ExpandClientInitiationform);
             ClickElement(BeneficiaryTracing.ExpandClientInitiationform);
-            ClickElement(BeneficiaryFormDropdown(BeneficiaryTracing.BeneficiaryTypeDropdown,BeneficiaryType));
-            SendText(BeneficiaryTracing.BeneficiaryNumber,BeneficiaryNo);
-            SendText(BeneficiaryTracing.BeneficiaryAccountNumber,BeneficiaryAccount);
-            SendText(BeneficiaryTracing.BeneficiaryAccBranchCode,BeneficiaryBranchCode);
-            ClickElement(BeneficiaryFormDropdown(BeneficiaryTracing.RelationtoDeceasedDropdown,RelationToDeceased));
-            ClickElement(BeneficiaryFormDropdown(BeneficiaryTracing.RelationSourceDropdown,RelationSource));
-            //SendText(BeneficiaryTracing.BeneficiaryDOB,"1983-03-09");
-            ClickElement(VOPD.VOPDFinalOutcome(BeneficiaryOutcome));
-            SendText(ClaimDeclinePage.AdditionalComments, BeneficiaryAdditionalComments);
-
+            if(!Beneficiarytype.get().isEmpty())
+                ClickElement(BeneficiaryFormDropdown(BeneficiaryTracing.BeneficiaryTypeDropdown,Beneficiarytype.get()));
+            if(!Beneficiaryno.get().isEmpty())
+                SendText(BeneficiaryTracing.BeneficiaryNumber,Beneficiaryno.get());
+            if(!Beneficiaryaccount.get().isEmpty())
+                SendText(BeneficiaryTracing.BeneficiaryAccountNumber,Beneficiaryaccount.get());
+            if(!BeneficiarybranchCode.get().isEmpty())
+                SendText(BeneficiaryTracing.BeneficiaryAccBranchCode,BeneficiarybranchCode.get());
+            if(!RelationtoDeceased.get().isEmpty())
+                ClickElement(BeneficiaryFormDropdown(BeneficiaryTracing.RelationtoDeceasedDropdown,RelationtoDeceased.get()));
+            if(!Relationsource.get().isEmpty())
+                ClickElement(BeneficiaryFormDropdown(BeneficiaryTracing.RelationSourceDropdown,Relationsource.get()));
+            ClickElement(VOPD.VOPDFinalOutcome(Beneficiaryoutcome.get()));
+            if(!BeneficiaryAdditionalcomments.get().isEmpty())
+                SendText(ClaimDeclinePage.AdditionalComments, BeneficiaryAdditionalcomments.get());
         }
         catch (Exception e)
         {

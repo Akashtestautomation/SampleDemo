@@ -106,7 +106,7 @@ public class DiarizeFunction extends GenericMethod {
             String DiarizedDate=GetElement(PreferredDiarizedDate).getAttribute("ng-reflect-model").substring(0,10);
             String DiarizedTime=GetElement(PreferredDiarizedTime).getAttribute("ng-reflect-model");
 
-            String DiarizedSetTime=DiarizedDate.substring(16,DiarizedTime.length()-6);
+            String DiarizedSetTime=DiarizedTime.substring(16,DiarizedTime.length()-6);
             String Diarization_DateTime=DiarizedDate+"T"+DiarizedSetTime;
             System.out.println(Diarization_DateTime);
 
@@ -130,6 +130,7 @@ public class DiarizeFunction extends GenericMethod {
             WaitforVisibilityOFElement(DiarizationIndicator,20);
             String datetimes=GetElement(DiarizationIndicator).getText();
             System.out.println("After Diarization "+datetimes);
+            Thread.sleep(8000);
             if(datetimes.equals(Diarization_DateTime))
                 System.out.println("SET");
                   else
@@ -208,14 +209,14 @@ public class DiarizeFunction extends GenericMethod {
         }
     }
 
-    public boolean VerifyExpiredStatus(String FieldName, String EnterValue)
+    public boolean VerifyExpiredStatus( String FieldName, String EnterValue)
     {
         boolean value=false;
         try{
               WaitforVisibilityOFElement(CloseOpenTask,10);
               ClickElement(CloseOpenTask);
               WaitforInvisibilityOfElement(CloseOpenTask,10);
-              home.FindPolicyUnderTask(FieldName,EnterValue,20);
+              home.FindPolicyUnderTask("Claims",FieldName,EnterValue,20);
               String s= driver.findElement(By.xpath("//app-task-management-in//mat-grid-tile[19]//mat-form-field//input")).getAttribute("ng-reflect-model");
               if(s.equals("Expired"))
                   value=true;

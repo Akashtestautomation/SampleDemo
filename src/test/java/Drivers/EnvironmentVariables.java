@@ -14,6 +14,4 @@ package Drivers;
 	public final static String InsureworxPre="http://lfe-rbflpreap01.fnb.co.za:8084/";
 	public final static String InsureworxInt="http://lfe-rbflintap01.fnb.co.za:8084/";
 
-
-
   }

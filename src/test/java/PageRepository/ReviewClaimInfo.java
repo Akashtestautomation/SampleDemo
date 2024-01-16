@@ -12,7 +12,8 @@ public class ReviewClaimInfo extends GenericMethod {
 
     HomePage home=new HomePage();
     public static By ReviewValidationResults=By.xpath("//textarea[@name='validatePolicySvcFromPASDescription']");
-    public static By ReviewClaimFinalOutcome=By.xpath("//mat-select[@ng-reflect-name='decision']");
+    //public static By ReviewClaimFinalOutcome=By.xpath("//mat-select[@ng-reflect-name='decision']");
+    public static By ReviewClaimFinalOutcome=By.xpath("//mat-label[text()=' Final Outcome ']");
     public static By ReviewClaimFinalOutcomeReason=By.xpath("//mat-select[@name='decisionReason']");
 
 

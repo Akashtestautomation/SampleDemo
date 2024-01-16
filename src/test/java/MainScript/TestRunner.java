@@ -1,10 +1,8 @@
 package MainScript;
-import java.awt.*;
 import java.lang.reflect.Method;
-import java.text.SimpleDateFormat;
+import java.lang.reflect.Parameter;
 import java.util.*;
 import java.util.List;
-
 import Methods.EmailFunctions;
 import Methods.PDFReader;
 import Methods.RobotClass;
@@ -24,9 +22,11 @@ public class TestRunner extends GenericMethod {
         ClaimDeclinePage Decline = new ClaimDeclinePage();
         VOPDDeathValidations VOPD = new VOPDDeathValidations();
         ReviewClaimInfo MS2B=new ReviewClaimInfo();
+        ReviewClaimInfo_OCR MS2A=new ReviewClaimInfo_OCR();
         GenericLocators genericLocator = new GenericLocators();
         BeneficiaryTracing BeneficiaryTrace = new BeneficiaryTracing();
         BeneficiaryAccountValidation Hyphen = new BeneficiaryAccountValidation();
+        BeneficiaryAccountValidation_8B MS_8B=new BeneficiaryAccountValidation_8B();
         FraudDesktopAssessment MS6 = new FraudDesktopAssessment();
         RealTimeScreening RTS = new RealTimeScreening();
         ComplexClaimAssessment MS5 = new ComplexClaimAssessment();
@@ -41,23 +41,21 @@ public class TestRunner extends GenericMethod {
     public void InitandLaunch() throws Exception {
         gm.DeleteExistingScreenshots();
         gm.DeleteExistingLogContent();
-        //Object[][] datasearch = gm.ReadExcel(EnvironmentVariables.ExcelsheetPath, "Sheet1");
-        //System.out.println(datasearch);
     }
 
     @Test(dataProvider = "ClaimSubmission")
-    public void TC_1(String testcase, String Username, String Password, String OperationDesk, String RequestChannel, String ProcessCategory, String SubProcessCategory, String Policy, String deceased, String Ph, String Beneficiary, String Account, String Branch, String Fname, String Lname, String Email, String VOPDStatus, String VOPD_DOD, String causeOfDeath, String placeOfDeath, String DeathDescription, String ValidationSource, String Status, String ValidationOutcome, String DeathValidationsComments, String FinalOutcome, String AdditionalComments, String BeneficiaryType, String BeneficiaryNo, String BeneficiaryAccount, String BeneficiaryBranchCode, String RelationToDeceased, String RelationSource, String BeneficiaryOutcome, String BeneficiaryAdditionalComments, String HyphenBeneficiaryType, String HyphenBeneficiaryBankName, String HyphenBeneficiaryNumber, String HyphenBeneficiaryAccountType, String HyphenBeneficiaryAccountNumber, String HyphenBeneficiaryAccBranchCode, String HyphenRelationtoDeceasedDropdown, String HyphenRelationSource, String HyphenRelationshipSource, String HyphenValidationSource, String HyphenStatus, String HyphenValidationOutcome, String BeneficiaryAccountExist, String BeneficiaryAccountAcceptPayment, String IsBeneficiaryAccountHolder, String IsBenficiaryAccountTypeValid, String IsBeneficiaryAccountOpen, String IsBenficiaryAccOpen3Months, String HyphenFinalOutcome, String HyphenAdditionalComments, String RTSReferenceNumber, String RTSResult, String MS5DocumentStatus, String MS5DocumentReference, String MS5PractitionerType, String MS5HPCSANumber, String MS5PractitionerName, String MS5PractitionerSurname, String MS5FacilityName, String MS5PractitionerNumber, String MS5PracticeContact, String MS5BusinessAddress, String MS5PracticeCity, String MS5PracticePostalcode, String MS5PracticeProvice, String MS5PractitionerValidationOutcome, String MS5PractitionerValidationSource, String MS5PractionerReferenceNo, String MS5PractitionerComments, String MS5FuneralParlourName, String MS5FuneralDHANo, String MS5FuneralCompanyRegistrationNo, String MS5FuneralSARSNo, String MS5FuneralValidationOutcome, String MS5FuneralValidationSource, String MS5FuneralReferenceNo, String MS5FuneralComments, String MS5InformantID, String MS5InformantDOB, String MS5InformantName, String MS5InformantSurname, String MS5InformantAddress, String MS5InformantCity, String MS5InformantPostalCode, String MS5InformantProvince, String MS5InformantRelationToDeceased, String MS5InformantContact, String MS5InformantValidationOutcome, String MS5InformantValidationSource, String MS5InformantReferenceNo, String MS5InformantComments, String MS5IndunaCauseofDeath, String MS5IndunaPlaceOfDeath, String MS5IndunaDeceaseSource, String MS5IndunaName, String MS5IndunaSurname, String MS5IndunaID, String MS5IndunaContactNo, String MS5IndunaAddress, String MS5IndunaCity, String MS5IndunaPostalCode, String MS5IndunaProvince, String MS5IndunaValidationOutcome, String MS5IndunaValidationSource, String MS5IndunaReferenceNo, String MS5IndunaComments, String MS6APractitionerType, String MS6AHPCSANumber, String MS6APractitionerName, String MS6APractitionerSurname, String MS6AFacilityName, String MS6APractitionerNumber, String MS6APracticeContact, String MS6ABusinessAddress, String MS6APracticeCity, String MS6APracticePostalcode, String MS6APracticeProvice, String MS6APractitionerValidationOutcome, String MS6APractitionerValidationSource, String MS6APractionerReferenceNo, String MS6APractitionerComments, String MS6AFuneralParlourName, String MS6AFuneralDHANo, String MS6AFuneralCompanyRegistrationNo, String MS6AFuneralSARSNo, String MS6AFuneralValidationOutcome, String MS6AFuneralValidationSource, String MS6AFuneralReferenceNo, String MS6AFuneralComments, String MS6AInformantID, String MS6AInformantDOB, String MS6AInformantName, String MS6AInformantSurname, String MS6AInformantAddress, String MS6AInformantCity, String MS6AInformantPostalCode, String MS6AInformantProvince, String MS6AInformantRelationToDeceased, String MS6AInformantContact, String MS6AInformantValidationOutcome, String MS6AInformantValidationSource, String MS6AInformantReferenceNo, String MS6AInformantComments, String MS6AIndunaCauseofDeath, String MS6AIndunaPlaceOfDeath, String MS6AIndunaDeceaseSource, String MS6AIndunaName, String MS6AIndunaSurname, String MS6AIndunaID, String MS6AIndunaContactNo, String MS6AIndunaAddress, String MS6AIndunaCity, String MS6AIndunaPostalCode, String MS6AIndunaProvince, String MS6AIndunaValidationOutcome, String MS6AIndunaValidationSource, String MS6AIndunaReferenceNo, String MS6AIndunaComments) throws InterruptedException, AWTException, EmailException {
+    public void TC_1(Map<String,String> Getvalue, Method method) throws InterruptedException, EmailException {
 
         try {
             test = report.createTest("Insurewrox Duplicate Test");
-            //gm.UpdatePolicyStatus("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400:fnbpre.fnb.co.za", Policy, "FNBTTEST5", "FNBTTEST5", 6);
-            //gm.ClearWorkItemFromDB("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400://fnbpre.fnb.co.za;libraries=WORKFLOW;", Policy, "FNBFLOW", "FNBFLOW");
-            //gm.DeleteClaimsFromDB("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400:fnbpre.fnb.co.za", Policy, "FNBTTEST5", "FNBTTEST5");
+            gm.UpdatePolicyStatus("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400:fnbpre.fnb.co.za", Getvalue.get("Policy Number"), "FNBTTEST5", "FNBTTEST5", 6);
+            gm.ClearWorkItemFromDB("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400://fnbpre.fnb.co.za;libraries=WORKFLOW;", Getvalue.get("Policy Number"), "FNBFLOW", "FNBFLOW");
+            gm.DeleteClaimsFromDB("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400:fnbpre.fnb.co.za", Getvalue.get("Policy Number"), "FNBTTEST5", "FNBTTEST5");
             //email.SendEmail();
 
             gm.launchBrowser("chrome");
             gm.GoToURL(EnvironmentVariables.InsureworxPre);
-            Boolean LoginStatus = login.LoginToInsureworx(Username, Password);
+            Boolean LoginStatus = login.LoginToInsureworx(Getvalue.get("Username"), Getvalue.get("Password"));
             if (LoginStatus)
                 gm.LogPass("Insureworx Login Page", "Insureworx Login successful");
             else
@@ -78,37 +76,41 @@ public class TestRunner extends GenericMethod {
 
             //--------------------------------------------------------------------------------------
 
-            Boolean IsPolicySubmitted = home.SubmitClaimForm(OperationDesk, RequestChannel, ProcessCategory, SubProcessCategory, Policy, deceased, Ph, Beneficiary, Fname, Lname, "7124634535", Email, Account, Branch);
+            //Boolean IsPolicySubmitted = home.SubmitClaimForm(OperationDesk, RequestChannel, ProcessCategory, SubProcessCategory, Policy, deceased, Ph, Beneficiary, Fname, Lname, "7124634535", Email, Account, Branch);
+            Boolean IsPolicySubmitted=home.SubmitClaimForm(Getvalue.get("OperationDesk"), Getvalue.get("RequestChannel"), Getvalue.get("ProcessCategory"), Getvalue.get("SubProcessCategory"), Getvalue.get("Policy Number"), Getvalue.get("DeceasedID"), Getvalue.get("PolicyHolderID"), Getvalue.get("BeneficiaryID"), Getvalue.get("FirstName"), Getvalue.get("LastName"), Getvalue.get("7124634535"), Getvalue.get("EmailID"), Getvalue.get("AccountNumber"), Getvalue.get("BranchCode"));
             if (IsPolicySubmitted)
                 gm.LogPass("Policy submitted successfully", "Policy submitted successfully");
             else
                 gm.LogFail("Policy Not submitted successfully", "Policy Not submitted successfully");
 
 
-            home.FindPolicyUnderTask(HomePage.TeamTask, Policy, 800);
-            home.FindPolicyUnderTask(HomePage.MyTask, Policy, 800);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.TeamTask, Getvalue.get("Policy Number"), 800);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 800);
             String DeathValidationResult = getTextUsingJs(VOPDDeathValidations.DeathValidationResults);
             if (DeathValidationResult.equals("Auto Death Validation failed and waiver rules have NOT been applied - Please complete full Manual Validation for Deceased"))
                 gm.LogPass("VOPD Outcome Validated", "VOPD Outcome Validated Successfully");
             else
                 gm.LogFail("VOPD Outcome not Validation failed", "VOPD Outcome Validation Failed");
-            VOPD.SubmitVOPDValidationForm(VOPDStatus, VOPD_DOD, causeOfDeath, placeOfDeath, DeathDescription, ValidationSource, Status, ValidationOutcome, DeathValidationsComments, FinalOutcome, AdditionalComments);
-
+            //VOPD.SubmitVOPDValidationForm(VOPDStatus, VOPD_DOD, causeOfDeath, placeOfDeath, DeathDescription, ValidationSource, Status, ValidationOutcome, DeathValidationsComments, FinalOutcome, AdditionalComments);
+            VOPD.SubmitVOPDValidationForm(Getvalue.get("VOPD_Status"), Getvalue.get("VOPD_DOD"), Getvalue.get("CauseOfDeath"),Getvalue.get("PlaceOfDeath"), Getvalue.get("DeathDescription"), Getvalue.get("ValidationSource"), Getvalue.get("Status"), Getvalue.get("ValidationOutcome"), Getvalue.get("DeathValidationComments"), Getvalue.get("VOPD_FinalOutcome"), Getvalue.get("VOPDAdditionalComments"));
 
             //-----------------Beneficiary Tracing--------------------
             System.out.println("Beneficiary Tracing - MS-7 Started");
-            home.FindPolicyUnderTask(HomePage.TeamTask, Policy, 300);
-            home.FindPolicyUnderTask(HomePage.MyTask, Policy, 300);
+            //home.FindPolicyUnderTask(HomePage.TeamTask, Policy, 300);
+            //home.FindPolicyUnderTask(HomePage.MyTask, Policy, 300);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.TeamTask, Getvalue.get("Policy Number"), 300);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 300);
+
             String BeneficiaryResult = home.getTextUsingJs(BeneficiaryTrace.BeneficiaryValidationResult);
             if (BeneficiaryResult.equals("Client Initiated Claim Request Received - The Claimant details provided does not match the Beneficiary details for the Policy. Please attempt to contact the correct Beneficiary and inform of the potential claim. Beneficiary details were retrieved from MINT."))
                 gm.LogPass("Beneficiary Outcome Validated", "Beneficiary Outcome Validated Successfully");
             else
                 gm.LogFail("Beneficiary Outcome not Validation failed", "Beneficiary Outcome Validation Failed");
-            BeneficiaryTrace.SubmitBeneficiaryTracingForm(BeneficiaryType, BeneficiaryNo, BeneficiaryAccount, BeneficiaryBranchCode, RelationToDeceased, RelationSource, BeneficiaryOutcome, BeneficiaryAdditionalComments);
+            BeneficiaryTrace.SubmitBeneficiaryTracingForm(Getvalue.get("BeneficiaryType"), Getvalue.get("BeneficiaryNo"), Getvalue.get("BeneficiaryAccount"), Getvalue.get("BeneficiaryBranchCode"), Getvalue.get("RelationToDeceased"), Getvalue.get("RelationSource"), Getvalue.get("BeneficiaryOutcome"), Getvalue.get("BeneficiaryAdditionalComments"));
 
             //home.FindPolicyUnderTask(HomePage.TeamTask,Policy,800);
             //home.FindPolicyUnderTask(HomePage.MyTask,Policy,800);
-            //Diarise.Diarization("Documents Required"," Beneficiary form and related IDs ");
+            Diarise.Diarization("Documents Required"," Beneficiary form and related IDs ");
             //home.FindPolicyUnderTask(HomePage.MyTask,Policy,800);
 
             String ProductName = home.GetOverviewData(HomePage.OverviewTabName.Policy, HomePage.PolicyOverview.productName);
@@ -142,8 +144,8 @@ public class TestRunner extends GenericMethod {
             //-------------------------Beneficiary Account Validations-----------------------------------
 
             System.out.println("Beneficiary Account Validations - MS-8C Started");
-            home.FindPolicyUnderTask(HomePage.TeamTask, Policy, 400);
-            home.FindPolicyUnderTask(HomePage.MyTask, Policy, 300);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.TeamTask, Getvalue.get("Policy Number"), 300);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 300);
             String HyphenResult = home.getTextUsingJs(BeneficiaryAccountValidation.HyphenAccountResult);
             System.out.println("Client Account Validation Failed - Hyphen Unable to Complete Validation Request - Please Confirm and Validate Account Details Manually");
             if (HyphenResult.equals("Client Account Validation Failed - Hyphen Unable to Complete Validation Request - Please Confirm and Validate Account Details Manually"))
@@ -151,12 +153,13 @@ public class TestRunner extends GenericMethod {
             else
                 gm.LogFail("Beneficiary Account Validations", "Beneficiary Account Validations Form Submitted Failed");
             System.out.println("Beneficiary Account Validations - MS-8C Ended");
-            Hyphen.SubmitAccountValidationForm(HyphenBeneficiaryType, HyphenBeneficiaryBankName, HyphenBeneficiaryNumber, HyphenBeneficiaryAccountType, HyphenBeneficiaryAccountNumber, HyphenBeneficiaryAccBranchCode, HyphenRelationtoDeceasedDropdown, HyphenRelationSource, HyphenRelationshipSource, HyphenValidationSource, HyphenStatus, HyphenValidationOutcome, BeneficiaryAccountExist, BeneficiaryAccountAcceptPayment, IsBeneficiaryAccountHolder, IsBenficiaryAccountTypeValid, IsBeneficiaryAccountOpen, IsBenficiaryAccOpen3Months, HyphenFinalOutcome, HyphenAdditionalComments);
+            Hyphen.SubmitAccountValidationForm(Getvalue.get("HyphenBeneficiaryType"), Getvalue.get("HyphenBeneficiaryBankName"), Getvalue.get("HyphenBeneficiaryNumber"), Getvalue.get("HyphenBeneficiaryAccountType"), Getvalue.get("HyphenBeneficiaryAccountNumber"),Getvalue.get("HyphenBeneficiaryAccBranchCode"), Getvalue.get("HyphenRelationtoDeceasedDropdown"), Getvalue.get("HyphenRelationSource"), Getvalue.get("HyphenRelationshipSource"), Getvalue.get("HyphenValidationSource"), Getvalue.get("HyphenStatus"), Getvalue.get("HyphenValidationOutcome"), Getvalue.get("BeneficiaryAccountExist"), Getvalue.get("BeneficiaryAccountAcceptPayment"), Getvalue.get("IsBeneficiaryAccountHolder"), Getvalue.get("IsBenficiaryAccountTypeValid"), Getvalue.get("IsBeneficiaryAccountOpen"), Getvalue.get("IsBenficiaryAccOpen3Months"), Getvalue.get("HyphenFinalOutcome"), Getvalue.get("HyphenAdditionalComments"));
 
 
             //--------------------------Real Time screening------------------------------------------
-            home.FindPolicyUnderTask(HomePage.TeamTask, Policy, 300);
-            home.FindPolicyUnderTask(HomePage.MyTask, Policy, 300);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.TeamTask, Getvalue.get("Policy Number"), 200);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 200);
+
             String RTS_Result = home.getTextUsingJs(RealTimeScreening.RTS_Result);
             System.out.println("Unable to Screen Beneficiary via CIS/Hogan – Please Screen Beneficiary via RTS Tool");
             if (RTS_Result.equals("Unable to Screen Beneficiary via CIS/Hogan – Please Screen Beneficiary via RTS Tool"))
@@ -164,13 +167,14 @@ public class TestRunner extends GenericMethod {
             else
                 gm.LogFail("RTS Validations", "RTS Validations Form Submitted Failed");
 
-            RTS.SubmitRTSForm(RTSReferenceNumber, RTSResult);
+            RTS.SubmitRTSForm(Getvalue.get("RTSReferenceNumber"), Getvalue.get("RTSResult"));
             //-------------------------ComplexClaimAssessment(MS-5)-----------------------------------
 
-            home.FindPolicyUnderTask(HomePage.TeamTask, Policy, 300);
-            home.FindPolicyUnderTask(HomePage.MyTask, Policy, 300);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.TeamTask, Getvalue.get("Policy Number"), 300);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 300);
             String ComplexAssessment = "Business Filter\n" + "Manual Assessment - Business Rules Not Passed - Review System Assessment Results and complete Manual Claims Assessment\n" + "\n" + "Risk Filter\n" + "Fraud Assessment - Fraud Assessment Required - Risk Score >= 150 - Review Risk Model Outcomes and Refer the Claim to Forensics";
-            MS5.SubmitMS5MandatoryValidationsForm(MS5DocumentStatus, MS5DocumentReference, MS5PractitionerType, MS5HPCSANumber, MS5PractitionerName, MS5PractitionerSurname, MS5FacilityName, MS5PractitionerNumber, MS5PracticeContact, MS5BusinessAddress, MS5PracticeCity, MS5PracticePostalcode, MS5PracticeProvice, MS5PractitionerValidationOutcome, MS5PractitionerValidationSource, MS5PractionerReferenceNo, MS5PractitionerComments, MS5FuneralParlourName, MS5FuneralDHANo, MS5FuneralCompanyRegistrationNo, MS5FuneralSARSNo, MS5FuneralValidationOutcome, MS5FuneralValidationSource, MS5FuneralReferenceNo, MS5FuneralComments, MS5InformantID, MS5InformantDOB, MS5InformantName, MS5InformantSurname, MS5InformantAddress, MS5InformantCity, MS5InformantPostalCode, MS5InformantProvince, MS5InformantRelationToDeceased, MS5InformantContact, MS5InformantValidationOutcome, MS5InformantValidationSource, MS5InformantReferenceNo, MS5InformantComments, MS5IndunaCauseofDeath, MS5IndunaPlaceOfDeath, MS5IndunaDeceaseSource, MS5IndunaName, MS5IndunaSurname, MS5IndunaID, MS5IndunaContactNo, MS5IndunaAddress, MS5IndunaCity, MS5IndunaPostalCode, MS5IndunaProvince, MS5IndunaValidationOutcome, MS5IndunaValidationSource, MS5IndunaReferenceNo, MS5IndunaComments);
+            //MS5.SubmitMS5MandatoryValidationsForm(MS5DocumentStatus, MS5DocumentReference, MS5PractitionerType, MS5HPCSANumber, MS5PractitionerName, MS5PractitionerSurname, MS5FacilityName, MS5PractitionerNumber, MS5PracticeContact, MS5BusinessAddress, MS5PracticeCity, MS5PracticePostalcode, MS5PracticeProvice, MS5PractitionerValidationOutcome, MS5PractitionerValidationSource, MS5PractionerReferenceNo, MS5PractitionerComments, MS5FuneralParlourName, MS5FuneralDHANo, MS5FuneralCompanyRegistrationNo, MS5FuneralSARSNo, MS5FuneralValidationOutcome, MS5FuneralValidationSource, MS5FuneralReferenceNo, MS5FuneralComments, MS5InformantID, MS5InformantDOB, MS5InformantName, MS5InformantSurname, MS5InformantAddress, MS5InformantCity, MS5InformantPostalCode, MS5InformantProvince, MS5InformantRelationToDeceased, MS5InformantContact, MS5InformantValidationOutcome, MS5InformantValidationSource, MS5InformantReferenceNo, MS5InformantComments, MS5IndunaCauseofDeath, MS5IndunaPlaceOfDeath, MS5IndunaDeceaseSource, MS5IndunaName, MS5IndunaSurname, MS5IndunaID, MS5IndunaContactNo, MS5IndunaAddress, MS5IndunaCity, MS5IndunaPostalCode, MS5IndunaProvince, MS5IndunaValidationOutcome, MS5IndunaValidationSource, MS5IndunaReferenceNo, MS5IndunaComments);
+            MS5.SubmitMS5MandatoryValidationsForm(Getvalue.get("MS5DocumentStatus"),Getvalue.get("MS5DocumentReference"),Getvalue.get("MS5PractitionerType"),Getvalue.get("MS5HPCSANumber"),Getvalue.get("MS5PractitionerName"),Getvalue.get("MS5PractitionerSurname"),Getvalue.get("MS5FacilityName"),Getvalue.get("MS5PractitionerNumber"),Getvalue.get("MS5PracticeContact"),Getvalue.get("MS5BusinessAddress"),Getvalue.get("MS5PracticeCity"),Getvalue.get("MS5PracticePostalcode"),Getvalue.get("MS5PracticeProvice"),Getvalue.get("MS5PractitionerValidationOutcome"),Getvalue.get("MS5PractitionerValidationSource"),Getvalue.get("MS5PractionerReferenceNo"),Getvalue.get("MS5PractitionerComments"),Getvalue.get("MS5FuneralParlourName"),Getvalue.get("MS5FuneralDHANo"),Getvalue.get("MS5FuneralCompanyRegistrationNo"),Getvalue.get("MS5FuneralSARSNo"),Getvalue.get("MS5FuneralValidationOutcome"),Getvalue.get("MS5FuneralValidationSource"),Getvalue.get("MS5FuneralReferenceNo"),Getvalue.get("MS5FuneralComments"),Getvalue.get("MS5InformantID"),Getvalue.get("MS5InformantDOB"),Getvalue.get("MS5InformantName"),Getvalue.get("MS5InformantSurname"),Getvalue.get("MS5InformantAddress"),Getvalue.get("MS5InformantCity"),Getvalue.get("MS5InformantPostalCode"),Getvalue.get("MS5InformantProvince"),Getvalue.get("MS5InformantRelationToDeceased"),Getvalue.get("MS5InformantContact"),Getvalue.get("MS5InformantValidationOutcome"),Getvalue.get("MS5InformantValidationSource"),Getvalue.get("MS5InformantReferenceNo"),Getvalue.get("MS5InformantComments"),Getvalue.get("MS5IndunaCauseofDeath"),Getvalue.get("MS5IndunaPlaceOfDeath"),Getvalue.get("MS5IndunaDeceaseSource"),Getvalue.get("MS5IndunaName"),Getvalue.get("MS5IndunaSurname"),Getvalue.get("MS5IndunaID"),Getvalue.get("MS5IndunaContactNo"),Getvalue.get("MS5IndunaAddress"),Getvalue.get("MS5IndunaCity"),Getvalue.get("MS5IndunaPostalCode"),Getvalue.get("MS5IndunaProvince"),Getvalue.get("MS5IndunaValidationOutcome"),Getvalue.get("MS5IndunaValidationSource"),Getvalue.get("MS5IndunaReferenceNo"),Getvalue.get("MS5IndunaComments"));
             String MS5AdditionalComments = "Submitted to Recalculate Risk Score";
             SendText(HomePage.AdditionalComments, MS5AdditionalComments);
             String MS5_Results = home.getTextUsingJs(ComplexClaimAssessment.ComplexAssessmentResults);
@@ -181,12 +185,12 @@ public class TestRunner extends GenericMethod {
             MS5.RecalculateRisk(HomePage.SubmitFormNotification);
 
             //--------------------------------------Back to MS-5--------------------------
-            home.FindPolicyUnderTask(HomePage.MyTask, Policy, 300);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 300);
 
-            String[] MedicalPractitionerFields = new String[]{MS5PractitionerType, MS5HPCSANumber, MS5PractitionerName, MS5PractitionerSurname, MS5FacilityName, MS5PractitionerNumber, MS5PracticeContact, MS5BusinessAddress, MS5PracticeCity, MS5PracticePostalcode.toString(), MS5PracticeProvice, MS5PractitionerValidationOutcome, MS5PractitionerValidationSource, MS5PractionerReferenceNo, MS5PractitionerComments};
-            String[] FuneralFields = new String[]{MS5FuneralValidationOutcome, MS5FuneralValidationSource, MS5FuneralReferenceNo, MS5FuneralComments, MS5FuneralParlourName, MS5FuneralDHANo, MS5FuneralCompanyRegistrationNo, MS5FuneralSARSNo};
-            String[] Informant = new String[]{MS5InformantValidationOutcome, MS5InformantValidationSource, MS5InformantReferenceNo, MS5InformantComments, MS5InformantID, MS5InformantDOB, MS5InformantName, MS5InformantSurname, MS5InformantAddress, MS5InformantCity, MS5InformantPostalCode, MS5InformantProvince, MS5InformantRelationToDeceased, MS5InformantContact};
-            String[] Induna = new String[]{MS5IndunaValidationOutcome, MS5IndunaValidationSource, MS5IndunaReferenceNo, MS5IndunaComments, MS5IndunaCauseofDeath, MS5IndunaPlaceOfDeath, MS5IndunaDeceaseSource, MS5IndunaName, MS5IndunaSurname, MS5IndunaID, MS5IndunaContactNo, MS5IndunaAddress, MS5IndunaCity, MS5IndunaPostalCode, MS5IndunaProvince};
+            String[] MedicalPractitionerFields = new String[]{Getvalue.get("MS5PractitionerType"), Getvalue.get("MS5HPCSANumber"), Getvalue.get("MS5PractitionerName"), Getvalue.get("MS5PractitionerSurname"), Getvalue.get("MS5FacilityName"), Getvalue.get("MS5PractitionerNumber"), Getvalue.get("MS5PracticeContact"), Getvalue.get("MS5BusinessAddress"),Getvalue.get("MS5PracticeCity"), Getvalue.get("MS5PracticePostalcode.toString()"), Getvalue.get("MS5PracticeProvice"), Getvalue.get("MS5PractitionerValidationOutcome"), Getvalue.get("MS5PractitionerValidationSource"), Getvalue.get("MS5PractionerReferenceNo"), Getvalue.get("MS5PractitionerComments")};
+            String[] FuneralFields = new String[]{Getvalue.get("MS5FuneralValidationOutcome"), Getvalue.get("MS5FuneralValidationSource"), Getvalue.get("MS5FuneralReferenceNo"), Getvalue.get("MS5FuneralComments"), Getvalue.get("MS5FuneralParlourName"), Getvalue.get("MS5FuneralDHANo"), Getvalue.get("MS5FuneralCompanyRegistrationNo"), Getvalue.get("MS5FuneralSARSNo")};
+            String[] Informant = new String[]{Getvalue.get("MS5InformantValidationOutcome"), Getvalue.get("MS5InformantValidationSource"), Getvalue.get("MS5InformantReferenceNo"), Getvalue.get("MS5InformantComments"), Getvalue.get("MS5InformantID"), Getvalue.get("MS5InformantDOB"), Getvalue.get("MS5InformantName"), Getvalue.get("MS5InformantSurname"), Getvalue.get("MS5InformantAddress"), Getvalue.get("MS5InformantCity"), Getvalue.get("MS5InformantPostalCode"), Getvalue.get("MS5InformantProvince"),Getvalue.get("MS5InformantRelationToDeceased"), Getvalue.get("MS5InformantContact")};
+            String[] Induna = new String[]{Getvalue.get("MS5IndunaValidationOutcome"), Getvalue.get("MS5IndunaValidationSource"), Getvalue.get("MS5IndunaReferenceNo"), Getvalue.get("MS5IndunaComments"), Getvalue.get("MS5IndunaCauseofDeath"), Getvalue.get("MS5IndunaPlaceOfDeath"),Getvalue.get("MS5IndunaDeceaseSource"), Getvalue.get("MS5IndunaName"), Getvalue.get("MS5IndunaSurname"), Getvalue.get("MS5IndunaID"), Getvalue.get("MS5IndunaContactNo"), Getvalue.get("MS5IndunaAddress"), Getvalue.get("MS5IndunaCity"), Getvalue.get("MS5IndunaPostalCode"), Getvalue.get("MS5IndunaProvince")};
 
             boolean MedicalPracOverviewData = home.CompareValidationsForms("Medical Practitioner Validation", MedicalPractitionerFields, HomePage.OverviewTabName.Manual);
             boolean FuneralOverviewData = home.CompareValidationsForms("Funeral Undertaker Validation", FuneralFields, HomePage.OverviewTabName.Manual);
@@ -232,22 +236,20 @@ public class TestRunner extends GenericMethod {
 
             //---------------------------------MS-6------------------------------------
             waitforPageload();
-            home.OperationsDesk("Fraud");
-            home.FindPolicyUnderTask(HomePage.TeamTask, Policy, 300);
-            home.FindPolicyUnderTask(HomePage.MyTask, Policy, 300);
-
+            home.FindPolicyUnderTask("Fraud",HomePage.TeamTask, Getvalue.get("Policy Number"), 300);
+            home.FindPolicyUnderTask("Fraud",HomePage.MyTask, Getvalue.get("Policy Number"), 300);
             waitforPageload();
             ClickElement(MS5.ExpandForm(HomePage.MedicalPractitionerForm));
-            MS5.SubmitValidationsResult(ComplexClaimAssessment.ValidationForm.medical, MS6APractitionerValidationOutcome, MS6APractitionerValidationSource, MS6APractionerReferenceNo, MS6APractitionerComments);
+            MS5.SubmitValidationsResult(ComplexClaimAssessment.ValidationForm.medical, Getvalue.get("MS6APractitionerValidationOutcome"), Getvalue.get("MS6APractitionerValidationSource"), Getvalue.get("MS6APractionerReferenceNo"), Getvalue.get("MS6APractitionerComments"));
 
             ClickElement(MS5.ExpandForm(HomePage.FuneralUndertakerFrom));
-            MS5.SubmitValidationsResult(ComplexClaimAssessment.ValidationForm.undertaker, MS6AFuneralValidationOutcome, MS6AFuneralValidationSource, MS6AFuneralReferenceNo, MS6AFuneralComments);
+            MS5.SubmitValidationsResult(ComplexClaimAssessment.ValidationForm.undertaker, Getvalue.get("MS6AFuneralValidationOutcome"), Getvalue.get("MS6AFuneralValidationSource"), Getvalue.get("MS6AFuneralReferenceNo"), Getvalue.get("MS6AFuneralComments"));
 
             ClickElement(MS5.ExpandForm(HomePage.InformantFrom));
-            MS5.SubmitValidationsResult(ComplexClaimAssessment.ValidationForm.informant, MS6AInformantValidationOutcome, MS6AInformantValidationSource, MS6AInformantReferenceNo, MS6AInformantComments);
+            MS5.SubmitValidationsResult(ComplexClaimAssessment.ValidationForm.informant, Getvalue.get("MS6AInformantValidationOutcome"), Getvalue.get("MS6AInformantValidationSource"), Getvalue.get("MS6AInformantReferenceNo"), Getvalue.get("MS6AInformantComments"));
 
             ClickElement(MS5.ExpandForm(HomePage.InndunaFrom));
-            MS5.SubmitValidationsResult(ComplexClaimAssessment.ValidationForm.induna, MS6AIndunaValidationOutcome, MS6AIndunaValidationSource, MS6AIndunaReferenceNo, MS6AIndunaComments);
+            MS5.SubmitValidationsResult(ComplexClaimAssessment.ValidationForm.induna, Getvalue.get("MS6AIndunaValidationOutcome"), Getvalue.get("MS6AIndunaValidationSource"), Getvalue.get("MS6AIndunaReferenceNo"), Getvalue.get("MS6AIndunaComments"));
 
             MS6.SelectFinalDecisionOutcome(FraudDesktopAssessment.Invalid_Referral, FraudDesktopAssessment.Simple);
             //MS6.SelectFinalDecisionOutcome("Refer to Field Investigator","F5401542","Simple");
@@ -273,13 +275,12 @@ public class TestRunner extends GenericMethod {
 
             home.SubmitClaim();
             //-----------------------------Back to MS-5--------------------------------------
-            home.OperationsDesk("Claims");
-            home.FindPolicyUnderTask(HomePage.MyTask, Policy, 300);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 300);
             //ClickElement(MS5.ExpandForm(HomePage.MedicalPractitionerForm));
-            String[] MS6A_MedicalPractitionerFields = new String[]{MS5PractitionerType, MS5HPCSANumber, MS5PractitionerName, MS5PractitionerSurname, MS5FacilityName, MS5PractitionerNumber, MS5PracticeContact, MS5BusinessAddress, MS5PracticeCity, MS5PracticePostalcode.toString(), MS5PracticeProvice, MS6APractitionerValidationOutcome, MS6APractitionerValidationSource, MS6APractionerReferenceNo, MS6APractitionerComments};
-            String[] MS6A_FuneralFields = new String[]{MS5FuneralParlourName, MS5FuneralDHANo, MS5FuneralCompanyRegistrationNo, MS5FuneralSARSNo, MS6AFuneralValidationOutcome, MS6AFuneralValidationSource, MS6AFuneralReferenceNo, MS6AFuneralComments};
-            String[] MS6A_Informant = new String[]{MS5InformantID, MS5InformantDOB, MS5InformantName, MS5InformantSurname, MS5InformantAddress, MS5InformantCity, MS5InformantPostalCode, MS5InformantProvince, MS5InformantRelationToDeceased, MS5InformantContact, MS6AInformantValidationOutcome, MS6AInformantValidationSource, MS6AInformantReferenceNo, MS6AInformantComments};
-            String[] MS6A_Induna = new String[]{MS5IndunaCauseofDeath, MS5IndunaPlaceOfDeath, MS5IndunaDeceaseSource, MS5IndunaName, MS5IndunaSurname, MS5IndunaID, MS5IndunaContactNo, MS5IndunaAddress, MS5IndunaCity, MS5IndunaPostalCode, MS5IndunaProvince, MS6AIndunaValidationOutcome, MS6AIndunaValidationSource, MS6AIndunaReferenceNo, MS6AIndunaComments};
+            String[] MS6A_MedicalPractitionerFields = new String[]{Getvalue.get("MS5PractitionerType"), Getvalue.get("MS5HPCSANumber"), Getvalue.get("MS5PractitionerName"), Getvalue.get("MS5PractitionerSurname"), Getvalue.get("MS5FacilityName"), Getvalue.get("MS5PractitionerNumber"), Getvalue.get("MS5PracticeContact"), Getvalue.get("MS5BusinessAddress"), Getvalue.get("MS5PracticeCity"), Getvalue.get("MS5PracticePostalcode.toString()"), Getvalue.get("MS5PracticeProvice"),Getvalue.get("MS6APractitionerValidationOutcome"), Getvalue.get("MS6APractitionerValidationSource"), Getvalue.get("MS6APractionerReferenceNo"), Getvalue.get("MS6APractitionerComments")};
+            String[] MS6A_FuneralFields = new String[]{Getvalue.get("MS5FuneralParlourName"), Getvalue.get("MS5FuneralDHANo"), Getvalue.get("MS5FuneralCompanyRegistrationNo"), Getvalue.get("MS5FuneralSARSNo"), Getvalue.get("MS6AFuneralValidationOutcome"), Getvalue.get("MS6AFuneralValidationSource"), Getvalue.get("MS6AFuneralReferenceNo"), Getvalue.get("MS6AFuneralComments")};
+            String[] MS6A_Informant = new String[]{Getvalue.get("MS5InformantID"), Getvalue.get("MS5InformantDOB"), Getvalue.get("MS5InformantName"), Getvalue.get("MS5InformantSurname"), Getvalue.get("MS5InformantAddress"), Getvalue.get("MS5InformantCity"), Getvalue.get("MS5InformantPostalCode"), Getvalue.get("MS5InformantProvince"), Getvalue.get("MS5InformantRelationToDeceased"), Getvalue.get("MS5InformantContact"), Getvalue.get("MS6AInformantValidationOutcome"), Getvalue.get("MS6AInformantValidationSource"), Getvalue.get("MS6AInformantReferenceNo"), Getvalue.get("MS6AInformantComments")};
+            String[] MS6A_Induna = new String[]{Getvalue.get("MS5IndunaCauseofDeath"), Getvalue.get("MS5IndunaPlaceOfDeath"), Getvalue.get("MS5IndunaDeceaseSource"), Getvalue.get("MS5IndunaName"), Getvalue.get("MS5IndunaSurname"), Getvalue.get("MS5IndunaID"), Getvalue.get("MS5IndunaContactNo"), Getvalue.get("MS5IndunaAddress"), Getvalue.get("MS5IndunaCity"), Getvalue.get("MS5IndunaPostalCode"), Getvalue.get("MS5IndunaProvince"), Getvalue.get("MS6AIndunaValidationOutcome"), Getvalue.get("MS6AIndunaValidationSource"), Getvalue.get("MS6AIndunaReferenceNo"), Getvalue.get("MS6AIndunaComments")};
 
             boolean MS6A_MedicalOverviewData = home.CompareValidationsForms("Medical Practitioner Validation", MS6A_MedicalPractitionerFields, HomePage.OverviewTabName.Fraud);
             boolean MS6A_FuneralOverviewData = home.CompareValidationsForms("Funeral Undertaker Validation", MS6A_FuneralFields, HomePage.OverviewTabName.Fraud);
@@ -330,7 +331,7 @@ public class TestRunner extends GenericMethod {
             System.out.println("=====================Flow Search===================");
             gm.GoToURL(EnvironmentVariables.FlowURLForPre);
             flow.LoginToFlow("F7890124", "password");
-            flow.SearchPolicyNumber(Policy);
+            flow.SearchPolicyNumber(Getvalue.get("Policy Number"));
             flow.OpenFlowComments("APPROVED");
             flow.GetCommentDescriptions("New Documents Appended - Greenline Claim in Progress on InsureWorX");
         } catch (Exception e) {
@@ -342,6 +343,8 @@ public class TestRunner extends GenericMethod {
     @Test(dataProvider = "ClaimSubmission")
     public void TC_2(Map<String,String> Getvalue, Method method)  {
         try {
+
+
             log.info("================================"+method.getName()+"==================================");
             test = report.createTest(method.getName());
             //email.SendEmail();
@@ -350,13 +353,16 @@ public class TestRunner extends GenericMethod {
             gm.ClearWorkItemFromDB("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400://fnbpre.fnb.co.za;libraries=WORKFLOW;", Getvalue.get("Policy Number"), "FNBFLOW", "FNBFLOW");
             gm.DeleteClaimsFromDB("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400:fnbpre.fnb.co.za", Getvalue.get("Policy Number"), "FNBTTEST5", "FNBTTEST5");
 
-            gm.launchBrowser("chrome");
-            gm.GoToURL(EnvironmentVariables.InsureworxPre);
+            //gm.launchBrowser("chrome");
+            //gm.GoToURL(EnvironmentVariables.InsureworxPre);
             Boolean LoginStatus = login.LoginToInsureworx(Getvalue.get("Username"), Getvalue.get("Password"));
             if (LoginStatus)
                 gm.LogPass("Insureworx Login Page", "Insureworx Login successful");
                  else
                    gm.LogFail("Insureworx Login Page", "Insureworx Login Unsuccessful");
+
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 800);
+            Diarise.Diarization("Documents Required"," Beneficiary form and related IDs ");
 
 
             Boolean IsPolicySubmitted = home.SubmitClaimForm(Getvalue.get("OperationDesk"), Getvalue.get("RequestChannel"), Getvalue.get("ProcessCategory"), Getvalue.get("SubProcessCategory"), Getvalue.get("Policy Number"), Getvalue.get("DeceasedID"), Getvalue.get("PolicyHolderID"), Getvalue.get("BeneficiaryID"), Getvalue.get("FirstName"), Getvalue.get("LastName"), Getvalue.get("7124634535"), Getvalue.get("EmailID"), Getvalue.get("AccountNumber"), Getvalue.get("BranchCode"));
@@ -366,8 +372,9 @@ public class TestRunner extends GenericMethod {
                    gm.LogFail("Policy Not submitted successfully", "Policy Not submitted successfully");
 
 
-            home.FindPolicyUnderTask(HomePage.TeamTask, Getvalue.get("Policy Number"), 800);
-            home.FindPolicyUnderTask(HomePage.MyTask, Getvalue.get("Policy Number"), 800);
+            //home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.TeamTask, Getvalue.get("Policy Number"), 800);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 800);
+            Diarise.Diarization("Documents Required"," Beneficiary form and related IDs ");
             String DeathValidationResult = getTextUsingJs(VOPDDeathValidations.DeathValidationResults);
             if (DeathValidationResult.equals("Auto Death Validation failed and waiver rules have NOT been applied - Please complete full Manual Validation for Deceased"))
                 gm.LogPass("VOPD Outcome Validated", "VOPD Outcome Validated Successfully");
@@ -404,9 +411,8 @@ public class TestRunner extends GenericMethod {
             gm.ClearWorkItemFromDB("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400://fnbpre.fnb.co.za;libraries=WORKFLOW;", Getvalue.get("Policy Number"), "FNBFLOW", "FNBFLOW");
             gm.DeleteClaimsFromDB("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400:fnbpre.fnb.co.za", Getvalue.get("Policy Number"), "FNBTTEST5", "FNBTTEST5");
 
-
-            gm.launchBrowser("chrome");
-            gm.GoToURL(EnvironmentVariables.InsureworxPre);
+            //gm.launchBrowser("chrome");
+            //gm.GoToURL(EnvironmentVariables.InsureworxPre);
             Boolean LoginStatus = login.LoginToInsureworx(Getvalue.get("Username"), Getvalue.get("Password"));
             if (LoginStatus)
                 gm.LogPass("Insureworx Login Page", "Insureworx Login successful");
@@ -421,9 +427,10 @@ public class TestRunner extends GenericMethod {
                    gm.LogFail("Policy Not submitted successfully", "Policy Not submitted successfully");
 
 
-            home.FindPolicyUnderTask(HomePage.TeamTask, Getvalue.get("Policy Number"), 800);
-            home.FindPolicyUnderTask(HomePage.MyTask, Getvalue.get("Policy Number"), 800);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.TeamTask, Getvalue.get("Policy Number"), 800);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 800);
             String ReviewPASValidationResult = getTextUsingJs(ReviewClaimInfo.ReviewValidationResults);
+            System.out.println(ReviewPASValidationResult);
             if (ReviewPASValidationResult.equals("No members found for Deceased ID on the policy - Complete Deceased section below"))
                 gm.LogPass("MS2B Outcome Validated", "MS-2B Validated Successfully");
                  else
@@ -432,8 +439,8 @@ public class TestRunner extends GenericMethod {
             String AdditionalComments="Non funeral request identified";
             MS2B.SubmitPASReviewFormAsInvalid(ReviewClaimInfo.InvalidClaimRequest,ReviewClaimInfo.UnableToConfirmCover,AdditionalComments);
 
-            home.FindPolicyUnderTask(HomePage.TeamTask, Getvalue.get("Policy Number"), 800);
-            home.FindPolicyUnderTask(HomePage.MyTask, Getvalue.get("Policy Number"), 800);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.TeamTask, Getvalue.get("Policy Number"), 800);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 800);
             String DeclinedValidationResult = getTextUsingJs(ClaimDeclinePage.SystemRecommendedAction);
             if (DeclinedValidationResult.equals("Claim Decline Suggested by Demo Demo - Unable to Confirm Deceased Cover - Review details and determine if suggested decline outcome is valid"))
                 gm.LogPass("MS4 Outcome Validated", "Claim Declined Successfully on MS-4");
@@ -451,6 +458,56 @@ public class TestRunner extends GenericMethod {
                 gm.LogPass("Insureworx Declined", "Claim Declined on Flow Successfully");
                  else
                   gm.LogFail("Insureworx not Declined", "Failed to Declined claim on Flow");
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    @Test(dataProvider = "ClaimSubmission")
+    public void TC_4(Map<String,String> Getvalue, Method method)  {
+        try {
+
+            test = report.createTest(method.getName());
+            gm.UpdatePolicyStatus("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400:fnbpre.fnb.co.za", Getvalue.get("Policy Number"), "FNBTTEST5", "FNBTTEST5", 6);
+            gm.ClearWorkItemFromDB("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400://fnbpre.fnb.co.za;libraries=WORKFLOW;", Getvalue.get("Policy Number"), "FNBFLOW", "FNBFLOW");
+            gm.DeleteClaimsFromDB("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400:fnbpre.fnb.co.za", Getvalue.get("Policy Number"), "FNBTTEST5", "FNBTTEST5");
+
+            //gm.launchBrowser("chrome");
+            //gm.GoToURL(EnvironmentVariables.InsureworxPre);
+            Boolean LoginStatus = login.LoginToInsureworx(Getvalue.get("Username"), Getvalue.get("Password"));
+            if (LoginStatus)
+                gm.LogPass("Insureworx Login Page", "Insureworx Login successful");
+            else
+                gm.LogFail("Insureworx Login Page", "Insureworx Login Unsuccessful");
+
+            Boolean IsPolicySubmitted = home.SubmitClaimForm(Getvalue.get("OperationDesk"), Getvalue.get("RequestChannel"), Getvalue.get("ProcessCategory"), Getvalue.get("SubProcessCategory"), Getvalue.get("Policy Number"), Getvalue.get("DeceasedID"), Getvalue.get("PolicyHolderID"), Getvalue.get("BeneficiaryID"), Getvalue.get("FirstName"), Getvalue.get("LastName"), Getvalue.get("7124634535"), Getvalue.get("EmailID"), Getvalue.get("AccountNumber"), Getvalue.get("BranchCode"));
+            if (IsPolicySubmitted)
+                gm.LogPass("Policy submitted successfully", "Policy submitted successfully");
+            else
+                gm.LogFail("Policy Not submitted successfully", "Policy Not submitted successfully");
+
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.TeamTask, Getvalue.get("Policy Number"), 800);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 800);
+            String ReviewPASValidationResult = getTextUsingJs(ReviewClaimInfo.ReviewValidationResults);
+            if (ReviewPASValidationResult.equals("No members found for Deceased ID on the policy - Complete Deceased section below"))
+                gm.LogPass("MS2B Outcome Validated", "MS-2B Validated Successfully");
+            else
+                gm.LogFail("MS2B Outcome not Validation failed", "MS-2B Outcome Validation Failed");
+
+            String AdditionalComments="Invalid claim identified";
+            MS2B.SubmitPASReviewFormAsInvalid(ReviewClaimInfo.CloseClaim,ReviewClaimInfo.InsufficientClaimDetails,AdditionalComments);
+
+            gm.GoToURL(EnvironmentVariables.FlowURLForPre);
+            flow.LoginToFlow("F7890124", "password");
+            flow.SearchPolicyNumber(Getvalue.get("Policy Number"));
+            boolean VerifyWorkItem=flow.VerifyFlowWorkItem("FUNERLCLM","NTU","FNRQLTY");
+            flow.OpenFlowComments("NTU");
+            boolean VerifyDuplicateComments = flow.GetCommentDescriptions("Unable to Initiate Claim - Insufficient Details Provided");
+            if(VerifyDuplicateComments && VerifyWorkItem)
+                gm.LogPass("Insureworx Refer to flow", "Claim sent to on Flow Successfully");
+                 else
+                   gm.LogFail("Insureworx Refer to flow", "Failed to send claim on Flow");
+            driver.close();
 
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -467,6 +524,7 @@ public class TestRunner extends GenericMethod {
             gm.DeleteClaimsFromDB("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400:fnbpre.fnb.co.za", Getvalue.get("Policy Number"), "FNBTTEST5", "FNBTTEST5");
 
             gm.launchBrowser("chrome");
+
             gm.GoToURL(EnvironmentVariables.InsureworxPre);
             Boolean LoginStatus = login.LoginToInsureworx(Getvalue.get("Username"), Getvalue.get("Password"));
             if (LoginStatus)
@@ -480,8 +538,8 @@ public class TestRunner extends GenericMethod {
                  else
                   gm.LogFail("Policy Not submitted successfully", "Policy Not submitted successfully");
 
-            home.FindPolicyUnderTask(HomePage.TeamTask, Getvalue.get("Policy Number"), 800);
-            home.FindPolicyUnderTask(HomePage.MyTask, Getvalue.get("Policy Number"), 800);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.TeamTask, Getvalue.get("Policy Number"), 800);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 800);
             String ReviewPASValidationResult = getTextUsingJs(ReviewClaimInfo.ReviewValidationResults);
             if (ReviewPASValidationResult.equals("No members found for Deceased ID on the policy - Complete Deceased section below"))
                 gm.LogPass("MS2B Outcome Validated", "MS-2B Validated Successfully");
@@ -507,11 +565,198 @@ public class TestRunner extends GenericMethod {
         }
     }
 
-    @AfterMethod
-    public void teardown() {
-        report.flush();
-        driver.quit();
+    @Test(dataProvider = "ClaimSubmission")
+    public void TC_6(Map<String,String> Getvalue, Method method)  {
+        try {
+            test = report.createTest(method.getName());
+            //email.SendEmail();
+            gm.UpdatePolicyStatus("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400:fnbpre.fnb.co.za", Getvalue.get("Policy Number"), "FNBTTEST5", "FNBTTEST5", 6);
+            gm.ClearWorkItemFromDB("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400://fnbpre.fnb.co.za;libraries=WORKFLOW;", Getvalue.get("Policy Number"), "FNBFLOW", "FNBFLOW");
+            gm.DeleteClaimsFromDB("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400:fnbpre.fnb.co.za", Getvalue.get("Policy Number"), "FNBTTEST5", "FNBTTEST5");
+
+            gm.launchBrowser("chrome");
+            gm.GoToURL(EnvironmentVariables.InsureworxPre);
+            Boolean LoginStatus = login.LoginToInsureworx(Getvalue.get("Username"), Getvalue.get("Password"));
+            if (LoginStatus)
+                gm.LogPass("Insureworx Login Page", "Insureworx Login successful");
+            else
+                gm.LogFail("Insureworx Login Page", "Insureworx Login Unsuccessful");
+
+            //--------------------------------------------------------------------------------------
+
+            Boolean IsPolicySubmitted = home.SubmitClaimForm(Getvalue.get("OperationDesk"), Getvalue.get("RequestChannel"), Getvalue.get("ProcessCategory"), Getvalue.get("SubProcessCategory"), Getvalue.get("Policy Number"), Getvalue.get("DeceasedID"), Getvalue.get("PolicyHolderID"), Getvalue.get("BeneficiaryID"), Getvalue.get("FirstName"), Getvalue.get("LastName"), Getvalue.get("7124634535"), Getvalue.get("EmailID"), Getvalue.get("AccountNumber"), Getvalue.get("BranchCode"));
+            if (IsPolicySubmitted)
+                gm.LogPass("Policy submitted successfully", "Policy submitted successfully");
+            else
+                gm.LogFail("Policy Not submitted successfully", "Policy Not submitted successfully");
+
+
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.TeamTask, Getvalue.get("Policy Number"), 800);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 800);
+            String DeathValidationResult = getTextUsingJs(VOPDDeathValidations.DeathValidationResults);
+            if (DeathValidationResult.equals("Auto Death Validation failed and waiver rules have NOT been applied - Please complete full Manual Validation for Deceased"))
+                gm.LogPass("VOPD Outcome Validated", "VOPD Outcome Validated Successfully");
+            else
+                gm.LogFail("VOPD Outcome not Validation failed", "VOPD Outcome Validation Failed");
+            VOPD.SubmitVOPDValidationForm(Getvalue.get("VOPD_Status"), Getvalue.get("VOPD_DOD"), Getvalue.get("CauseOfDeath"),Getvalue.get("PlaceOfDeath"), Getvalue.get("DeathDescription"), Getvalue.get("ValidationSource"), Getvalue.get("Status"), Getvalue.get("ValidationOutcome"), Getvalue.get("DeathValidationComments"), Getvalue.get("VOPD_FinalOutcome"), Getvalue.get("VOPDAdditionalComments"));
+
+
+            //-----------------Beneficiary Tracing--------------------
+            System.out.println("Beneficiary Tracing - MS-7 Started");
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.TeamTask, Getvalue.get("Policy Number"), 300);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 300);
+            String BeneficiaryResult = home.getTextUsingJs(BeneficiaryTrace.BeneficiaryValidationResult);
+            if (BeneficiaryResult.equals("Client Initiated Claim Request Received - The Claimant details provided does not match the Beneficiary details for the Policy. Please attempt to contact the correct Beneficiary and inform of the potential claim. Beneficiary details were retrieved from MINT."))
+                gm.LogPass("Beneficiary Outcome Validated", "Beneficiary Outcome Validated Successfully");
+            else
+                gm.LogFail("Beneficiary Outcome not Validation failed", "Beneficiary Outcome Validation Failed");
+            BeneficiaryTrace.SubmitBeneficiaryTracingForm(Getvalue.get("BeneficiaryType"), Getvalue.get("BeneficiaryNo"), Getvalue.get("BeneficiaryAccount"), Getvalue.get("BeneficiaryBranchCode"), Getvalue.get("RelationToDeceased"), Getvalue.get("RelationSource"), Getvalue.get("BeneficiaryOutcome"), Getvalue.get("BeneficiaryAdditionalComments"));
+            home.SubmitClaim(HomePage.SubmitFormNotification);
+
+            gm.GoToURL(EnvironmentVariables.FlowURLForPre);
+            flow.LoginToFlow("F7890124", "password");
+            flow.SearchPolicyNumber(Getvalue.get("Policy Number"));
+            boolean VerifyWorkItem=flow.VerifyFlowWorkItem("FUNERLCLM","INDEXED","FNRWRK");
+            flow.OpenFlowComments("INDEXED");
+            boolean VerifyDuplicateComments = flow.GetCommentDescriptions("Claim Referred to Flow for Long-Term Beneficiary Tracing");
+            if(VerifyDuplicateComments && VerifyWorkItem)
+                gm.LogPass("Insureworx Refer to flow", "Claim sent to on Flow Successfully");
+            else
+                gm.LogFail("Insureworx Refer to flow", "Failed to send claim on Flow");
+
+
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
     }
+
+    @Test(dataProvider = "ClaimSubmission")
+    public void TC_7(Map<String,String> Getvalue, Method method) throws InterruptedException, EmailException {
+        try {
+            test = report.createTest("Insurewrox Duplicate Test");
+            gm.UpdatePolicyStatus("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400:fnbpre.fnb.co.za", Getvalue.get("Policy Number"), "FNBTTEST5", "FNBTTEST5", 6);
+            gm.ClearWorkItemFromDB("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400://fnbpre.fnb.co.za;libraries=WORKFLOW;", Getvalue.get("Policy"), "FNBFLOW", "FNBFLOW");
+            gm.DeleteClaimsFromDB("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400:fnbpre.fnb.co.za", Getvalue.get("Policy Number"), "FNBTTEST5", "FNBTTEST5");
+            //email.SendEmail();
+
+            gm.launchBrowser("chrome");
+            gm.GoToURL(EnvironmentVariables.InsureworxPre);
+            Boolean LoginStatus = login.LoginToInsureworx(Getvalue.get("Username"), Getvalue.get("Password"));
+            if (LoginStatus)
+                gm.LogPass("Insureworx Login Page", "Insureworx Login successful");
+            else
+                gm.LogFail("Insureworx Login Page", "Insureworx Login Unsuccessful");
+
+
+            //-------------------------Upload Functionality----------------------------
+            /* home.FindPolicyUnderTask(HomePage.MyTask,Policy,300);
+            MS5.ClickElement(MS5.ExpandForm(HomePage.MedicalPractitionerForm));
+            String path=System.getProperty("user.dir")+"\\src\\test\\java\\InputData\\Welcome Letter-FI.pdf";
+            //By locator=By.xpath("//app-medical-validations/div/app-validation-result/div/div/div/app-uploadfile//span[1]/mat-icon");
+            robot.UploadFiles(HomePage.MediacalFileUpload,path);
+            WaitforVisibilityOFElement(HomePage.UploadedFiles);
+            boolean b1=home.VerifyCRMImage(path);
+            boolean b2=pdf.DownloadandVerifyCRMFile(EnvironmentVariables.DownloadFilePath+"Welcome Letter-FI.pdf");
+            home.ClosePDFDoc();
+            pdf.DeleteFile(EnvironmentVariables.DownloadFilePath+"Welcome Letter-FI.pdf");
+            */
+
+            //--------------------------------------------------------------------------------------
+
+            Boolean IsPolicySubmitted = home.SubmitClaimForm(Getvalue.get("OperationDesk"), Getvalue.get("RequestChannel"), Getvalue.get("ProcessCategory"), Getvalue.get("SubProcessCategory"), Getvalue.get("Policy Number"), Getvalue.get("DeceasedID"), Getvalue.get("PolicyHolderID"), Getvalue.get("BeneficiaryID"), Getvalue.get("FirstName"), Getvalue.get("LastName"), Getvalue.get("7124634535"), Getvalue.get("EmailID"), Getvalue.get("AccountNumber"), Getvalue.get("BranchCode"));
+            if (IsPolicySubmitted)
+                gm.LogPass("Policy submitted successfully", "Policy submitted successfully");
+            else
+                gm.LogFail("Policy Not submitted successfully", "Policy Not submitted successfully");
+
+
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.TeamTask, Getvalue.get("Policy Number"), 300);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 300);
+            String DeathValidationResult = getTextUsingJs(VOPDDeathValidations.DeathValidationResults);
+            if (DeathValidationResult.equals("Auto Death Validation failed and waiver rules have NOT been applied - Please complete full Manual Validation for Deceased"))
+                gm.LogPass("VOPD Outcome Validated", "VOPD Outcome Validated Successfully");
+            else
+                gm.LogFail("VOPD Outcome not Validation failed", "VOPD Outcome Validation Failed");
+            VOPD.SubmitVOPDValidationForm(Getvalue.get("VOPD_Status"), Getvalue.get("VOPD_DOD"), Getvalue.get("CauseOfDeath"),Getvalue.get("PlaceOfDeath"), Getvalue.get("DeathDescription"), Getvalue.get("ValidationSource"), Getvalue.get("Status"), Getvalue.get("ValidationOutcome"), Getvalue.get("DeathValidationComments"), Getvalue.get("VOPD_FinalOutcome"), Getvalue.get("VOPDAdditionalComments"));
+
+
+            //-----------------Beneficiary Account Validation MS-8B--------------------
+            System.out.println("Beneficiary Tracing - MS-7 Started");
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.TeamTask, Getvalue.get("Policy Number"), 300);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 300);
+
+            String BeneficiaryResult = home.getTextUsingJs(BeneficiaryTrace.BeneficiaryValidationResult);
+            if (BeneficiaryResult.equals("Client Account Validation Failed - Account Does Not Exist - Please Review and Confirm Account Details"))
+                gm.LogPass("Beneficiary Outcome Validated", "Beneficiary Outcome Validated Successfully");
+            else
+                gm.LogFail("Beneficiary Outcome not Validation failed", "Beneficiary Outcome Validation Failed");
+            MS_8B.SubmitBeneficiaryForm_8B(Getvalue.get("BeneficiaryType"), Getvalue.get("BeneficiaryNo"), Getvalue.get("BeneficiaryAccount"), Getvalue.get("BeneficiaryBranchCode"), Getvalue.get("RelationToDeceased"), Getvalue.get("RelationSource"), Getvalue.get("BeneficiaryOutcome"), Getvalue.get("BeneficiaryAdditionalComments"));
+
+            //-------------------------Beneficiary Account Validations-MS8C-----------------------------------
+
+            System.out.println("Beneficiary Account Validations - MS-8C Started");
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.TeamTask, Getvalue.get("Policy Number"), 300);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 300);
+
+            String HyphenResult = home.getTextUsingJs(BeneficiaryAccountValidation.HyphenAccountResult);
+            if (HyphenResult.equals("Client Account Validation Failed - Account Does Not Exist - Please Review and Confirm Account Details"))
+                gm.LogPass("Beneficiary Account Validations", "Beneficiary Account Validations Form Submitted Successfully");
+            else
+                gm.LogFail("Beneficiary Account Validations", "Beneficiary Account Validations Form Submitted Failed");
+            System.out.println("Beneficiary Account Validations - MS-8C Ended");
+            Hyphen.SubmitAccountValidationForm(Getvalue.get("HyphenBeneficiaryType"), Getvalue.get("HyphenBeneficiaryBankName"), Getvalue.get("HyphenBeneficiaryNumber"), Getvalue.get("HyphenBeneficiaryAccountType"), Getvalue.get("HyphenBeneficiaryAccountNumber"), Getvalue.get("HyphenBeneficiaryAccBranchCode"), Getvalue.get("HyphenRelationtoDeceasedDropdown"), Getvalue.get("HyphenRelationSource"), Getvalue.get("HyphenRelationshipSource"), Getvalue.get("HyphenValidationSource"), Getvalue.get("HyphenStatus"), Getvalue.get("HyphenValidationOutcome"), Getvalue.get("BeneficiaryAccountExist"), Getvalue.get("BeneficiaryAccountAcceptPayment"), Getvalue.get("IsBeneficiaryAccountHolder"), Getvalue.get("IsBenficiaryAccountTypeValid"), Getvalue.get("IsBeneficiaryAccountOpen"), Getvalue.get("IsBenficiaryAccOpen3Months"), Getvalue.get("HyphenFinalOutcome"), Getvalue.get("HyphenAdditionalComments"));
+
+
+            //--------------------------Real Time screening------------------------------------------
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.TeamTask, Getvalue.get("Policy Number"), 300);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 300);
+            String RTS_Result = home.getTextUsingJs(RealTimeScreening.RTS_Result);
+            System.out.println("Unable to Screen Beneficiary via CIS/Hogan – Please Screen Beneficiary via RTS Tool");
+            if (RTS_Result.equals("Unable to Screen Beneficiary via CIS/Hogan – Please Screen Beneficiary via RTS Tool"))
+                gm.LogPass("RTS Validations", "RTS Validations Form Submitted Successfully");
+                 else
+                  gm.LogFail("RTS Validations", "RTS Validations Form Submitted Failed");
+
+            RTS.SubmitRTSForm(Getvalue.get("RTSReferenceNumber"), Getvalue.get("RTSResult"));
+            //-------------------------ComplexClaimAssessment(MS-5)-----------------------------------
+
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.TeamTask, Getvalue.get("Policy Number"), 300);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 300);
+            String ComplexAssessment = "Business Filter\n" +
+                    "Manual Assessment - Business Rules Not Passed - Deceased Cover Changed in the Last 12 Months - Unnatural Death - Review System Assessment Results and complete Manual Claims Assessment\n" +
+                    "\n" +
+                    "Risk Filter\n" +
+                    "Manual Assessment - Manual Assessment Required - Account Validated Manually - Review Results, Request Documents if Required and Complete Manual Claims Assessment";
+            String MS5_Results = home.getTextUsingJs(ComplexClaimAssessment.ComplexAssessmentResults);
+            if (MS5_Results.equals(ComplexAssessment))
+                gm.LogPass("MS-5 Recalculation", "MS-5 Submitted for Recalculation Successfully");
+                 else
+                   gm.LogFail("MS-5 Recalculation", "MS-5 Forms Submitted for Recalculation Failed");
+
+            MS5.SelectFinalDecisionAndReason(ComplexClaimAssessment.Approve_Claim);
+            String ApproveComment = "Submitted as approved from MS-5";
+            gm.SendText(HomePage.AdditionalComments, ApproveComment);
+            ClickElement(ComplexClaimAssessment.ConfirmationCheckbox);
+            home.SubmitClaim();
+
+
+            System.out.println("=====================Flow Search===================");
+            gm.GoToURL(EnvironmentVariables.FlowURLForPre);
+            flow.LoginToFlow("F7890124", "password");
+            flow.SearchPolicyNumber(Getvalue.get("Policy Number"));
+            flow.OpenFlowComments("APPROVED");
+            Boolean flag=flow.GetCommentDescriptions("Claim Approved on InsureWorX");
+            if(flag)
+              gm.LogPass("Approved on Flow", "Approved on Flow Successfully");
+                 else
+                  gm.LogFail("Not Approved", "Not Approved on Flow");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
 
    /* @DataProvider(name="ClaimSubmission")
     public Object[][] value(ITestContext context) throws Exception
@@ -538,10 +783,121 @@ public class TestRunner extends GenericMethod {
     }
     */
 
+    @Test(dataProvider = "ClaimSubmission")
+    public void TC_8(Map<String,String> Getvalue, Method method)  {
+        try {
+            test = report.createTest(method.getName());
+
+            gm.UpdatePolicyStatus("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400:fnbpre.fnb.co.za", Getvalue.get("Policy Number"), "FNBTTEST5", "FNBTTEST5", 6);
+            gm.ClearWorkItemFromDB("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400://fnbpre.fnb.co.za;libraries=WORKFLOW;", Getvalue.get("Policy Number"), "FNBFLOW", "FNBFLOW");
+            gm.DeleteClaimsFromDB("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400:fnbpre.fnb.co.za", Getvalue.get("Policy Number"), "FNBTTEST5", "FNBTTEST5");
+            //String url=gm.getURL();
+
+            Boolean LoginStatus = login.LoginToInsureworx(Getvalue.get("Username"), Getvalue.get("Password"));
+            if (LoginStatus)
+                gm.LogPass("Insureworx Login Page", "Insureworx Login successful");
+            else
+                gm.LogFail("Insureworx Login Page", "Insureworx Login Unsuccessful");
+
+            //--------------------------------------------------------------------------------------
+
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.TeamTask, Getvalue.get("Policy Number"), 800);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 800);
+            String OCRValidationResult = getTextUsingJs(ReviewClaimInfo_OCR.ReviewValidationResults_OCR);
+            if (OCRValidationResult.equals("No Deceased ID Number captured/extracted"))
+                gm.LogPass("OCR Outcome Validated", "OCR Outcome Validated Successfully");
+            else
+                gm.LogFail("OCR Outcome not Validation failed", "OCR Outcome Validation Failed");
+
+            String AdditionalComments="Non funeral request identified";
+            MS2B.SubmitPASReviewFormAsInvalid(ReviewClaimInfo.NonFuneralClaimRequest,ReviewClaimInfo.FuneralClaimRequest,AdditionalComments);
+
+            gm.GoToURL(EnvironmentVariables.FlowURLForInt);
+            flow.LoginToFlow("F7890124", "password");
+            flow.SearchPolicyNumber(Getvalue.get("Policy Number"));
+            flow.OpenFlowComments("NEW");
+            boolean NonFuneralRequest = flow.GetCommentDescriptions("Claim Request Referred to Flow For Manual Indexing - Non-Funeral (FI) Claim Request Identified");
+            if(NonFuneralRequest)
+                gm.LogPass("Non funeral indexing", "Claim offboarded on Flow Successfully");
+                 else
+                   gm.LogFail("Non funeral indexing", "Failed to offboard claim on Flow");
+
+
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    @Test(dataProvider = "ClaimSubmission")
+    public void TC_9(Map<String,String> Getvalue, Method method)  {
+        try {
+            test = report.createTest(method.getName());
+
+            gm.UpdatePolicyStatus("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400:fnbpre.fnb.co.za", Getvalue.get("Policy Number"), "FNBTTEST5", "FNBTTEST5", 6);
+            gm.ClearWorkItemFromDB("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400://fnbpre.fnb.co.za;libraries=WORKFLOW;", Getvalue.get("Policy Number"), "FNBFLOW", "FNBFLOW");
+            gm.DeleteClaimsFromDB("com.ibm.as400.access.AS400JDBCDriver", "jdbc:as400:fnbpre.fnb.co.za", Getvalue.get("Policy Number"), "FNBTTEST5", "FNBTTEST5");
+            email.SendEmail(Getvalue.get("EmailUsername"),Getvalue.get("EmailPassword"),Getvalue.get("Email Subject"),Getvalue.get("Email Body"));
+
+            String url=gm.getURL();
+            Boolean LoginStatus = login.LoginToInsureworx(Getvalue.get("Username"), Getvalue.get("Password"));
+            if (LoginStatus)
+                gm.LogPass("Insureworx Login Page", "Insureworx Login successful");
+            else
+                gm.LogFail("Insureworx Login Page", "Insureworx Login Unsuccessful");
+
+            //--------------------------------------------------------------------------------------
+
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.TeamTask, Getvalue.get("Policy Number"), 800);
+            home.FindPolicyUnderTask(Getvalue.get("OperationDesk"),HomePage.MyTask, Getvalue.get("Policy Number"), 800);
+            String OCRValidationResult = getTextUsingJs(ReviewClaimInfo_OCR.ReviewValidationResults_OCR);
+            if (OCRValidationResult.equals("No Deceased ID Number captured/extracted"))
+                gm.LogPass("OCR Outcome Validated", "OCR Outcome Validated Successfully");
+            else
+                gm.LogFail("OCR Outcome not Validation failed", "OCR Outcome Validation Failed");
+
+            String AdditionalComments="Closing funeral request";
+            MS2B.SubmitPASReviewFormAsInvalid(ReviewClaimInfo.CloseClaim,ReviewClaimInfo.InsufficientClaimDetails,AdditionalComments);
+
+            gm.GoToURL(EnvironmentVariables.FlowURLForInt);
+            flow.LoginToFlow("F7890124", "password");
+            flow.SearchPolicyNumber(Getvalue.get("Policy Number"));
+            flow.OpenFlowComments("NTU");
+            boolean NonFuneralRequest = flow.GetCommentDescriptions("Unable to Initiate Claim - Insufficient Details Provided");
+            if(NonFuneralRequest)
+                gm.LogPass("Closing claim", "Claim offboarded on Flow Successfully");
+            else
+                gm.LogFail("Closing claim", "Failed to offboard claim on Flow");
+
+
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    @AfterMethod
+    public void teardown() {
+        report.flush();
+        driver.quit();
+    }
+
+
+
     @DataProvider(name = "ClaimSubmission")
-    public static Object[][] values(Method m, ITestContext context) throws Exception {
+    public Object[][] values(Method m, ITestContext context) throws Exception {
+
         String TestCase = m.getName();
-        List<Map<String, String>> list = GenericMethod.ReadExcelSheet(EnvironmentVariables.ExcelsheetPath, "TestData");
+        List<Map<String, String>> ReadEnvironmentType=GenericMethod.ReadEnvironmentTypeFromExcel(EnvironmentVariables.ExcelsheetPath,"TestCase");
+        String EnvType=ReadEnvironmentType.get(0).get("EnvironmentType");
+        gm.launchBrowser("chrome");
+        List<Map<String, String>> list=null;
+        if(EnvType.equals("INT")) {
+            gm.GoToURL(EnvironmentVariables.InsureworxInt);
+               list= GenericMethod.ReadExcelSheet(EnvironmentVariables.ExcelsheetPath, "INT_TestData");
+        }
+        else {
+            gm.GoToURL(EnvironmentVariables.InsureworxPre);
+                 list = GenericMethod.ReadExcelSheet(EnvironmentVariables.ExcelsheetPath, "QA_TestData");
+        }
         List<Map<String, String>> ExecutionList = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).get("Test_Case").equalsIgnoreCase(TestCase)) {
@@ -552,5 +908,4 @@ public class TestRunner extends GenericMethod {
                 ExecutionList.toArray()
         };
     }
-
 }

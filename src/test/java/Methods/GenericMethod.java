@@ -2,6 +2,7 @@ package Methods;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.sql.*;
 import java.lang.String;
 import java.text.SimpleDateFormat;
@@ -65,7 +66,7 @@ public class GenericMethod{
 	{
 	   try {
 			if(BrowserType.equalsIgnoreCase("chrome")) {
-			     System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"\\src\\test\\java\\InputData\\chromedriver.exe");;
+			     System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"\\src\\test\\java\\InputData\\chromedriver.exe");
 		    	 ChromeOptions option=new ChromeOptions();
 				 Map<String, Object> prefs = new HashMap<String, Object>();
 				 prefs.put("download.default_directory", System.getProperty("user.dir")+"\\src\\test\\java\\Downloads");
@@ -566,6 +567,16 @@ public class GenericMethod{
     	return flag;
     }
 
+    public String getURL() {
+		String url=null;
+		try{
+			 url=driver.getCurrentUrl();
+		}catch (Exception e){
+			log.error("Failed to verify text from the List due to "+e.getMessage());
+		}
+		return url;
+	}
+
 
 	public enum Locators
 	{
@@ -899,6 +910,7 @@ public class GenericMethod{
 				InputStream input=new FileInputStream(ExcelPath);
 				workbook=new HSSFWorkbook(new POIFSFileSystem(input));
 			}
+
 			sheet=workbook.getSheet(SheetName);
 			int lastrow=sheet.getLastRowNum();
 			int lastColumn=sheet.getRow(0).getLastCellNum();
@@ -913,7 +925,46 @@ public class GenericMethod{
 					String value=sheet.getRow(i).getCell(j).getStringCellValue();
 					map.put(key,value);
 				}
-				list.add(map);
+				System.out.println(list.add(map));
+			}
+		}
+		catch(Exception e) {
+			log.error("Failed to read data from excel due to "+e.getStackTrace());
+		}
+		return list;
+	}
+
+	public static List<Map<String,String>> ReadEnvironmentTypeFromExcel(String ExcelPath,String SheetName) throws Exception
+	{
+		List<Map<String,String>> list=null;
+		try
+		{
+			File file=new File(ExcelPath);
+			FileInputStream fis=new FileInputStream(file);
+			Workbook workbook;
+
+			if(ExcelPath.contains(".xlsx"))
+				workbook=new XSSFWorkbook(ExcelPath);
+			else {
+				InputStream input=new FileInputStream(ExcelPath);
+				workbook=new HSSFWorkbook(new POIFSFileSystem(input));
+			}
+
+			sheet=workbook.getSheet(SheetName);
+			int lastrow=sheet.getLastRowNum();
+			int lastColumn=sheet.getRow(0).getLastCellNum();
+
+			Map<String,String> map=null;
+			list=new ArrayList<>();
+
+			for(int i=1;i<=lastrow;i++) {
+				map=new LinkedHashMap<>();
+				for(int j=0;j<lastColumn;j++){
+					String key=sheet.getRow(0).getCell(j).getStringCellValue();
+					String value=sheet.getRow(i).getCell(j).getStringCellValue();
+					map.put(key,value);
+				}
+				System.out.println(list.add(map));
 			}
 		}
 		catch(Exception e) {
@@ -1207,5 +1258,6 @@ public class GenericMethod{
 		}
 		return time;
 	}
+
 
 }

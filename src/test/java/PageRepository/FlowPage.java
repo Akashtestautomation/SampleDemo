@@ -47,9 +47,14 @@ public class FlowPage extends GenericMethod
     public WebElement HeaerList(String HeaderName)
     { return driver.findElement(By.xpath("//thead[@id='createSearchItemView:mainTabView:workItemtable_head']//th//span[text()="+HeaderName+"]"));}
     
-    public WebElement OpenStatusWiseComments(String PolicyStatus)
-    { return driver.findElement(By.xpath("//tbody[@id='createSearchItemView:mainTabView:commentstable_data']//td//span[text()='"+PolicyStatus+"']"));}
-    
+    public WebElement OpenStatusWiseComments(String PolicyStatus) {
+		wait=new WebDriverWait(driver, 10);
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tbody[@id='createSearchItemView:mainTabView:commentstable_data']//td//span[text()='"+PolicyStatus+"']")));
+		//return driver.findElement(By.xpath("//tbody[@id='createSearchItemView:mainTabView:commentstable_data']//td//span[text()='"+PolicyStatus+"']"));
+	}
+
+	public WebElement SelectWorkItemByStatus(String WorkItemStatus)
+	{ return driver.findElement(By.xpath("//tbody[@id='createSearchItemView:mainTabView:workItemtable_data']//td//span[text()='"+WorkItemStatus+"']"));}
     
 	public boolean LoginToFlow(String username, String Password )
 	{
@@ -136,19 +141,17 @@ public class FlowPage extends GenericMethod
     public void OpenFlowComments(String Status)
     {
     	try {
-    		WebElement wb=driver.findElement(By.xpath("//tbody[@id='createSearchItemView:mainTabView:workItemtable_data']//tr[1]//td[2]//span"));
+    	    WebElement wb=SelectWorkItemByStatus(Status);
     	    Actions action=new Actions(driver);
     	    action.moveToElement(wb).doubleClick().perform();
-            gm.WaitforVisibilityOFElement(FlowPage.CommentSummaryBtn, 60);
-    	    //JavascriptExecutor js=(JavascriptExecutor)driver;
-            //js.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(FlowPage.GetCommentsResult));
+            gm.WaitforVisibilityOFElement(FlowPage.GetCommentsResult, 60);
 			gm.ScollToElement(driver.findElement(FlowPage.GetCommentsResult));
-            Thread.sleep(5000);
-            //gm.WaitforpageLoad(FlowPage.GetCommentsResult, 60); 
             gm.ClickElement(OpenStatusWiseComments(Status));
             gm.ClickElement(CommentSummaryBtn);
             gm.WaitforFrameLoad(0,20);
-    	}
+			((JavascriptExecutor)driver).executeScript("window.scrollBy(0,600)");
+
+		}
     	catch (Exception e) {
 		  log.error(e.getMessage());	// TODO: handle exception
 		}

@@ -249,6 +249,7 @@ public class ComplexClaimAssessment extends GenericMethod {
             ScollToElement(ViewFormDetails(ValidationForm.induna));
 
             ClickElement(IndunaCauseOfDeath);
+            System.out.println(causeOfDeath);
             ClickElement(GetDropdownItem(causeOfDeath));
 
             ClickElement(IndunaPlaceOfDeath);
@@ -387,7 +388,6 @@ public class ComplexClaimAssessment extends GenericMethod {
 
             //InformantForm("7401014800083","1996-10-10","Adam","joy","R1451","Kimberley","6001","Northern Cape","Cousin","7125142561");
             //SubmitValidationsResult(ComplexClaimAssessment.ValidationForm.informant,"Waive","XDS Portal","R15156","Informant form submitted");
-
             //IndunaForm("Natural","Hospital","Telephonic Call with Doctor/Nurse","Sam","Peter","7007036608089","7123435245","New Lake","Capetown","4001","Northern Cape");
             IndunaForm(MS5IndunaCauseofDeath,MS5IndunaPlaceOfDeath,MS5IndunaDeceaseSource,MS5IndunaName,MS5IndunaSurname,MS5IndunaID,MS5IndunaContactNo,MS5BusinessAddress,MS5IndunaCity,MS5IndunaPostalCode,MS5IndunaProvince);
             SubmitValidationsResult(ValidationForm.induna,MS5IndunaValidationOutcome,MS5IndunaValidationSource,MS5IndunaReferenceNo,MS5IndunaComments);

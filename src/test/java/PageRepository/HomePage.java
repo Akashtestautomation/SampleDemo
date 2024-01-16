@@ -187,7 +187,7 @@ public class HomePage extends GenericMethod {
 	 */          
 	//PolicyFields fields[]=new PolicyFields[8]; 
 
-    public Boolean SubmitClaimForm(String OperationDesk, String	RequestChannel, String ProcessCategory,String SubProcessCategory,String PolicyNo, String DeceasedID, String PH_ID, String BeneficiaryID, String FirstName, String LastName, String ContactNo, String EmailID, String AccountNo, String BranchCode)
+    public Boolean SubmitClaimForm(String OperationDesk, String	RequestChannel, String ProcessCategory,String SubProcessCategory,String PolicyNo, String DeceasedID, String PH_ID, String BeneficiaryID, String FirstName, String LastName, String ContactNo, String EmailID, String AccountNumber, String BranchCode)
     {
 	  Boolean flag=null;
 	  WebDriverWait wait=new WebDriverWait(driver, 2);
@@ -205,7 +205,7 @@ public class HomePage extends GenericMethod {
  	 	 Optional<String> Lastname=Optional.ofNullable(LastName);
  	 	 Optional<String> Contactno=Optional.ofNullable(ContactNo);
  	 	 Optional<String> Emailaddress=Optional.ofNullable(EmailID);
- 	 	 Optional<String> AccountNumber=Optional.ofNullable(AccountNo);
+ 	 	 Optional<String> AccountNo=Optional.ofNullable(AccountNumber);
  	 	 Optional<String> Branchcode=Optional.ofNullable(BranchCode);
 
 
@@ -221,8 +221,8 @@ public class HomePage extends GenericMethod {
  	 	 	   gm.EnterValue(FirstNameInput(), Firstname.get());
  	 	 if(Lastname.isPresent())
  	 	 	   gm.EnterValue(lastNameInput(), Lastname.get());
- 	 	 if(AccountNumber.isPresent())
-	 	 	   gm.EnterValue(AccountNoInput(), AccountNumber.get());
+ 	 	 if(AccountNo.isPresent())
+	 	 	   gm.EnterValue(AccountNoInput(), AccountNo.get());
  	 	 if(Branchcode.isPresent())
 	 	 	   gm.EnterValue(BranchCodeInput(), Branchcode.get());
 	 	  	 	
@@ -311,12 +311,11 @@ public class HomePage extends GenericMethod {
 
 
 
-    public Boolean FindPolicyUnderTask(String TaskTab,String PolicyNumber,int wait)
+    public Boolean FindPolicyUnderTask(String OperationalDesk,String TaskTab,String PolicyNumber,int wait)
     {
 		Boolean flag=false;
     	try 
     	{
-			OperationsDesk("Claims");
 	        String PolicyNo=null; String policyNum=null;List<WebElement>ListOfPolicies=null;
     		if(TaskTab.contains("Team Tasks"))
     		{		
@@ -324,6 +323,9 @@ public class HomePage extends GenericMethod {
 	           if(TeamTaskTab.equals("false")) {
 				   ClickElement(TeamTasksTab);
 				   WaitforInvisibilityOfElement(ClaimSubmitAcknowledge, 10);
+				   OperationsDesk(OperationalDesk);
+			   }else {
+				   OperationsDesk(OperationalDesk);
 			   }
     		}
     		else if(TaskTab.contains("My Tasks"))
@@ -332,6 +334,9 @@ public class HomePage extends GenericMethod {
 	           if(MyTaskTab.equals("false")) {
 				   ClickElement(MyTasksTab);
 				   WaitforInvisibilityOfElement(ClaimSubmitAcknowledge,10);
+				   OperationsDesk(OperationalDesk);
+			   } else{
+				   OperationsDesk(OperationalDesk);
 			   }
     		}
 
@@ -360,7 +365,6 @@ public class HomePage extends GenericMethod {
 
 							String PolicyNum=driver.findElement(By.xpath("//mat-card-content//div[2]//mat-label[2]")).getText();
 							String FetchPolicyNumber=PolicyNum.trim();
-							System.out.println(FetchPolicyNumber);
 							if(FetchPolicyNumber.equals(PolicyNumber)) {
 								flag=true;
 								if(TaskTab.contains("Team Tasks")) {

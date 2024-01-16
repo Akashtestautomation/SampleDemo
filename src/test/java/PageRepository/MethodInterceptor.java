@@ -10,16 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class MethodInterceptor implements IMethodInterceptor {
+public class MethodInterceptor extends GenericMethod implements IMethodInterceptor{
 
-    GenericMethod gm=new GenericMethod();
 
     @Override
     public List<IMethodInstance> intercept(List<IMethodInstance> method, ITestContext context)
     {
         List<Map<String,String>> list=null;
         try {
-             list= gm.ReadExcelSheet(EnvironmentVariables.ExcelsheetPath,"TestCase");
+             list= ReadExcelSheet(EnvironmentVariables.ExcelsheetPath,"TestCase");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -36,4 +35,5 @@ public class MethodInterceptor implements IMethodInterceptor {
         }
         return  res;
     }
+
 }
